@@ -8,10 +8,15 @@ const {
     handleCreateProduct
 } = require("../controllers/product");
 
+
 router.get("/", handleGetAllProducts);
+
 router.put("/:id", handleUpdateProduct);
+
 router.delete("/:id", handleDeleteProduct);
+
 router.post("/", handleCreateProduct);
+
 router.get("/:id", handleSingleGetProducts)
 
 module.exports = router;
