@@ -1,53 +1,103 @@
-const product = require('../models/product');
+const Product = require('../models/product');
 
+// Get all products
 const handleGetAllProducts = async (req, res) => {
-    const user = await product.find();
-    if (!user) {
-        return res.status(404).send({
-            message: 'Product not found',
-        })
+    try {
+        const products = await Product.find();
+        if (!products || products.length === 0) {
+            return res.status(404).json({ message: 'No products found' });
+        }
+        return res.status(200).json({
+            message: 'Products retrieved successfully',
+            data: products
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    return res.status(200).send({
-        message: 'Successfully found',
-        data: user
-    })
-}
+};
 
+// Get single product by ID
+const handleSingleGetProducts = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        return res.status(200).json(product);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+// Create new product
 const handleCreateProduct = async (req, res) => {
     const { name, price, description, category } = req.body;
-    if (!name || !name || !price || !description || !category) {
-        return res.status(400).send({
-            message: 'Please enter a valid product name',
-        })
-    }
-    const payload = { name, price, description, category };
-    const creteUser = await product.create(payload);
-    return res.status(200).send(creteUser);
-}
 
+    if (!name || !price || !description || !category) {
+        return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    try {
+        const createdProduct = await Product.create({ name, price, description, category });
+        return res.status(201).json({
+            message: 'Product created successfully',
+            product: createdProduct
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+// Update product by ID
 const handleUpdateProduct = async (req, res) => {
-    const id = req.params.id;
     const { name, price, description, category } = req.body;
-    if (!name || !name || !price || !description || !category) {
-        return res.status(400).send({
-            message: 'Please enter a valid product name',
-        })
+
+    if (!name || !price || !description || !category) {
+        return res.status(400).json({ message: 'All fields are required' });
     }
-    const payload = { name, price, description, category };
-    const updateUser = await product.findByIdAndUpdate(id, payload, { new: true });
-    return res.status(200).send(updateUser);
-}
 
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(
+            req.params.id,
+            { name, price, description, category },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedProduct) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        return res.status(200).json({
+            message: 'Product updated successfully',
+            product: updatedProduct
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+// Delete product by ID
 const handleDeleteProduct = async (req, res) => {
-    const id = req.params.id;
-    const deletedUser = await product.findByIdAndDelete(id);
-    return res.status(200).send(deletedUser);
-}
+    try {
+        const deletedProduct = await Product.findByIdAndDelete(req.params.id);
 
-const handleSingleGetProducts = async (req, res) => {
-    const id = req.params.id;
-    const singleUser = await product.findById(id);
-    return res.status(200).send(singleUser);
-}
+        if (!deletedProduct) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
 
-module.exports = {handleSingleGetProducts, handleGetAllProducts, handleUpdateProduct, handleDeleteProduct, handleCreateProduct};
+        return res.status(200).json({
+            message: 'Product deleted successfully',
+            product: deletedProduct
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+module.exports = {
+    handleSingleGetProducts,
+    handleGetAllProducts,
+    handleCreateProduct,
+    handleUpdateProduct,
+    handleDeleteProduct
+};
