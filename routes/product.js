@@ -7,13 +7,14 @@ const {
     handleDeleteProduct,
     handleCreateProduct
 } = require("../controllers/product");
+const {auth} = require("../middlewares/auth");
 
 
-router.get("/", handleGetAllProducts);
+router.get("/",auth, handleGetAllProducts);
 
-router.put("/:id", handleUpdateProduct);
+router.put("/:id",auth, handleUpdateProduct);
 
-router.delete("/:id", handleDeleteProduct);
+router.delete("/:id",auth, handleDeleteProduct);
 
 router.post("/", handleCreateProduct);
 
