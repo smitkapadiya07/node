@@ -5,7 +5,7 @@ require('dotenv').config();
 
 // Generate token
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 
 // Handle user registration
@@ -27,16 +27,10 @@ const handleRegister = async (req, res) => {
         const user = new Auth({ name, email, password: hashedPassword });
         await user.save();
 
-        const token = generateToken(user._id);
 
         res.status(201).json({
             message: 'User registered successfully',
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-            },
-            token,
+            user
         });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -66,11 +60,7 @@ const handleLogin = async (req, res) => {
 
         res.status(200).json({
             message: 'Login successful',
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-            },
+            data: user,
             token,
         });
     } catch (err) {
