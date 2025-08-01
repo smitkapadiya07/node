@@ -11,14 +11,14 @@ const {
 
 const { auth } = require("../middlewares/auth");
 
-router.get("/", auth, handleGetAllProducts);
+router.get("/", handleGetAllProducts);
 
 router.post("/", handleCreateProduct);
 
 router.get("/:id", handleSingleGetProducts);
 
-router.put("/:id", auth, handleUpdateProduct);
+router.put("/:id", handleUpdateProduct);
 
-router.delete("/:id", auth, handleDeleteProduct);
+router.delete("/:id", handleDeleteProduct);
 
 module.exports = router;
