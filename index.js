@@ -4,14 +4,14 @@ const dotenv = require('dotenv');
 const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/product');
-
+const cors = require("cors");
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 9090;
 
-
+app.use(cors());
 app.use(express.json());
 
 
