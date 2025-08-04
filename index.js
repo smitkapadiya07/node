@@ -5,6 +5,7 @@ const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/product');
 const cors = require("cors");
+const {auth} = require("./middlewares/auth");
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
-app.use('/api/product', productRoutes);
+app.use('/api/product',auth, productRoutes);
 
 
 mongoose
