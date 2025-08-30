@@ -14,6 +14,7 @@ const authMiddleware = async function (req, res, next) {
     if (authToken.toLowerCase().startsWith('bearer ')) {
         authToken = authToken.split(' ')[1];
     }
+
     const user = await verifyToken(authToken);
     if (!user || !user.id) {
         return res.status(401).json({
