@@ -33,6 +33,7 @@ const handleCreateUser = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
 // Update a user by ID
 const handleUpdateUser = async (req, res) => {
     try {
