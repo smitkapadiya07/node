@@ -27,6 +27,7 @@ const handleRegister = async (req, res) => {
         const user = new Auth({ name, email, password: hashedPassword });
         await user.save();
 
+
         res.status(201).json({
             message: 'User registered successfully',
             user
