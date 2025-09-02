@@ -15,6 +15,7 @@ const handleGetAllProducts = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
 // Get single product by ID
 const handleSingleGetProducts = async (req, res) => {
     try {
