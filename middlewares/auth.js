@@ -15,6 +15,7 @@ const authMiddleware = async function (req, res, next) {
         authToken = authToken.split(' ')[1];
     }
 
+
     const user = await verifyToken(authToken);
     if (!user || !user.id) {
         return res.status(401).json({
