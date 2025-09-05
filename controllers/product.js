@@ -16,6 +16,7 @@ const handleGetAllProducts = async (req, res) => {
     }
 };
 
+
 // Get single product by ID
 const handleSingleGetProducts = async (req, res) => {
     try {
