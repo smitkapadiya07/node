@@ -22,3 +22,4 @@ router.put("/:id", handleUpdateProduct);
 router.delete("/:id", handleDeleteProduct);
 
 module.exports = router;
+
