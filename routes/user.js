@@ -20,3 +20,4 @@ router.put('/:id', handleUpdateUser);
 router.delete('/:id', handleDeleteUser);
 
 module.exports = router;
+
