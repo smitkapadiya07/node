@@ -34,7 +34,6 @@ const handleCreateUser = async (req, res) => {
     }
 };
 
-
 // Update a user by ID
 const handleUpdateUser = async (req, res) => {
     try {
