@@ -9,7 +9,6 @@ const generateToken = (id, expiresIn = '1d') => {
 
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn });
 };
-
 // Verify and decode token
 const verifyToken = (token) => {
     try {
