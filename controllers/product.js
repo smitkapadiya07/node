@@ -27,7 +27,6 @@ const handleSingleGetProducts = async (req, res) => {
     }
 };
 
-// Create new product
 const handleCreateProduct = async (req, res) => {
     const { name, price, description, category } = req.body;
 
