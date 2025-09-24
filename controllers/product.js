@@ -3,6 +3,7 @@ const Product = require('../models/product');
 const handleGetAllProducts = async (req, res) => {
     try {
         const products = await Product.find();
+        
         if (!products || products.length === 0) {
             return res.status(404).json({ message: 'No products found' });
         }
