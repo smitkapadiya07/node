@@ -45,7 +45,6 @@ const handleCreateProduct = async (req, res) => {
     }
 };
 
-// Update product by ID
 const handleUpdateProduct = async (req, res) => {
     const { name, price, description, category } = req.body;
 
@@ -73,7 +72,6 @@ const handleUpdateProduct = async (req, res) => {
     }
 };
 
-// Delete product by ID
 const handleDeleteProduct = async (req, res) => {
     try {
         const deletedProduct = await Product.findByIdAndDelete(req.params.id);
