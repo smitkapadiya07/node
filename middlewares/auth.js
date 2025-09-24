@@ -24,6 +24,7 @@ const authMiddleware = async function (req, res, next) {
     }
 
     const verifiedAuth = await auth.findById(user.id);
+    
     if (!verifiedAuth) {
         return res.status(401).json({
             message: 'Unauthorized: User not found',
